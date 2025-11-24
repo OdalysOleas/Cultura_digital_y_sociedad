@@ -3,7 +3,7 @@
 ## Introducción
 
 En esta actividad se trabajó con un programa en Python que calcula los números primos entre 1 y 100 000.  
-El código original usa una función "es_primo(n)" que revisa si un número es primo probando todos los divisores desde 2 hasta `n-1`.  
+El código original usa una función es_primo(n) que revisa si un número es primo probando todos los divisores desde 2 hasta n-1.  
 Después recorre todo el rango y va guardando los primos en una lista.
 
 El programa funciona, pero tarda bastante.  
