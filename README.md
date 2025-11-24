@@ -82,5 +82,21 @@ Estos gráficos ayudan a entender mejor dónde se está gastando el tiempo y a m
 
 ---
 
+**Anexos**  
+<img width="886" height="588" alt="image" src="https://github.com/user-attachments/assets/b3e97bc3-f0ed-4948-8ee5-2c1cfdca722f" />
+
+<img width="886" height="423" alt="image" src="https://github.com/user-attachments/assets/bf507536-ed37-41a8-96ac-81f1f2b5fb1b" />
+
+<img width="1891" height="923" alt="b8f20c13-014c-4cae-83cb-2c3c6df9a814" src="https://github.com/user-attachments/assets/b5852d83-7405-4749-b357-f5e1fd80f28b" />
+
+<img width="1095" height="579" alt="image" src="https://github.com/user-attachments/assets/f1e5075e-5da3-4dc9-95c2-e4380f8a47bd" />
+
+<img width="1919" height="833" alt="6cf5dfa5-8948-4dce-9f35-50998fefda9a" src="https://github.com/user-attachments/assets/89883757-4d22-4b5e-9a48-d44bf893229f" />
+
+<img width="1919" height="930" alt="3cfe666b-1037-4512-a897-e060ad91ddfb" src="https://github.com/user-attachments/assets/9180fc75-5ae0-4077-a2a9-d843d22d261e" />
+
+<img width="1088" height="547" alt="image" src="https://github.com/user-attachments/assets/26d41351-03ca-4659-8fba-5b2066466c2d" />
+
+
 **Enlace al repositorio en GitHub:**  
 https://github.com/OdalysOleas/Cultura_digital_y_sociedad
