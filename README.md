@@ -1,93 +1,90 @@
-## Optimización de código y medición de tiempos
+# Optimización de código y medición de tiempos
 
 ## Introducción
 
-El objetivo de esta actividad fue aplicar técnicas de optimización y buenas prácticas de programación para mejorar la eficiencia de un código en Python que calcula los números primos en el rango de 1 a 100 000.  
+En esta actividad se trabajó con un programa en Python que calcula los números primos entre 1 y 100 000.  
+El código original usa una función `es_primo(n)` que revisa si un número es primo probando todos los divisores desde 2 hasta `n-1`.  
+Después recorre todo el rango y va guardando los primos en una lista.
 
-El código original implementa una función `es_primo(n)` que verifica si un número es primo utilizando un bucle que recorre todos los enteros desde 2 hasta `n - 1`. Después, se recorre el rango completo y se van agregando a una lista todos los números que resultan primos.  
-
-Aunque el algoritmo es correcto, presenta dos problemas principales:
-
-- **Alta complejidad temporal**: para cada número `n` se realizan hasta `n` operaciones de división, lo cual es muy costoso cuando el rango llega hasta 100 000.
-- **Uso poco eficiente de estructuras y librerías**: se utiliza únicamente una lista y bucles simples, sin aprovechar herramientas como comprensiones de listas o librerías optimizadas (por ejemplo, NumPy).
-
-Por estos motivos, el tiempo de ejecución del código original fue de aproximadamente **15.1 segundos**, lo que evidencia la necesidad de optimizarlo.
-
----
+El programa funciona, pero tarda bastante.  
+En las primeras pruebas el tiempo de ejecución fue de unos **15.1 segundos**, lo cual es alto para un rango que no es tan grande.  
+Por eso se decidió buscar formas de optimizar el código y medir de forma más precisa los tiempos que se obtienen antes y después de los cambios.
 
 ## Optimización realizada
 
-Para mejorar el rendimiento se aplicaron varias técnicas de optimización:
+Los cambios principales que se aplicaron al código fueron:
 
-1. **Reducción del rango del bucle en `es_primo(n)`**
+1. **Revisión de divisores solo hasta la raíz cuadrada de n**
 
-   En lugar de comprobar divisores desde 2 hasta `n - 1`, se modificó la función para iterar solo hasta la **raíz cuadrada de `n`**.  
-   Matemáticamente, si un número `n` no tiene divisores menores o iguales a `√n`, entonces es primo.  
+   En la función es_primo(n) ya no se revisan divisores hasta n-1, sino solo hasta int(sqrt(n)).  
+   Si un número no tiene divisores menores o iguales a su raíz cuadrada, se puede considerar primo.  
+   Esto reduce bastante el número de divisiones que se hacen en cada llamada.
 
-   Esto reduce drásticamente el número de operaciones necesarias y disminuye la complejidad del algoritmo.
+2. **Uso de NumPy para las comprobaciones**
 
-2. **Uso de comprensiones de listas**
+   Se usó la librería **NumPy** para crear arreglos de posibles divisores y hacer las operaciones de forma vectorizada.  
+   NumPy está optimizado en C, por lo que estas operaciones son más rápidas que un bucle `for` puro en Python.
 
-   Se utilizaron comprensiones de listas para hacer más compacta y eficiente la creación de listas de divisores y/o de números primos, en lugar de bucles `for` tradicionales con `append()`.  
-   Esto sigue las buenas prácticas de Python (PEP 8) y suele ofrecer un mejor rendimiento.
+3. **Pequeñas mejoras de estilo**
 
-3. **Uso de NumPy**
+   - Se organizaron mejor las funciones.  
+   - Se limpiaron algunas partes del código para que sea más fácil de leer.  
+   - Se siguieron algunas recomendaciones básicas de PEP 8 (nombres de variables, sangrías, etc.).
 
-   Se introdujo la librería **NumPy** para trabajar con **arrays** y operaciones vectorizadas.  
-   NumPy está implementado en C y permite realizar cálculos numéricos de forma mucho más rápida que los bucles puros en Python.  
-   En este caso, se utilizaron arrays de posibles divisores y operaciones vectorizadas para comprobar si un número tiene divisores.
-
-Gracias a estas optimizaciones, el tiempo de ejecución se redujo de manera significativa.
-
----
+Con estos ajustes se buscó que el programa sea más rápido, pero manteniendo el mismo resultado (lista de números primos en el mismo rango).
 
 ## Resultados
 
-### 1. Comparación de tiempos de ejecución
+### 1. Tiempos de ejecución
 
-Se midieron los tiempos con la biblioteca `time` antes y después de la optimización:
+Las mediciones se hicieron con el módulo `time`:
 
-- **Código original**:  
-  Tiempo de ejecución ≈ **15.1 segundos**.
+- **Código original:** tiempo de ejecución ≈ **15.1 segundos**.  
+- **Código optimizado:** tiempo de ejecución entre **0.6 y 0.8 segundos** (según la corrida).
 
-- **Código optimizado**:  
-  Tiempo de ejecución ≈ **0.6–0.8 segundos**.
+Con esto, el código optimizado es mucho más rápido.  
+La mejora es de alrededor de un **95 % del tiempo**, es decir, el programa corre unas **20 veces más rápido** que la versión inicial.
 
-En el gráfico de barras generado con Matplotlib se observa que la barra del código original es mucho mayor que la del código optimizado. Esto muestra de forma visual que el tiempo se redujo aproximadamente en un **95 %**, es decir, el código optimizado es alrededor de **20 veces más rápido**.
-<img width="886" height="631" alt="image" src="https://github.com/user-attachments/assets/5e4e0864-9883-4bde-b00e-8eb09dea469d" />
+En el **gráfico de barras** generado con Matplotlib se ve claramente esta diferencia:  
+la barra del código original es muy alta y la del código optimizado es casi mínima en comparación.
+<img width="886" height="631" alt="image" src="https://github.com/user-attachments/assets/04cbc7e1-195e-46ae-9daa-8c699395052c" />
 
-### 2. Análisis de `cProfile`
 
-Se utilizó `cProfile` para identificar las funciones que más tiempo consumen.
+### 2. Análisis con cProfile
 
-En el **código original**:
+También se usó **`cProfile`** para ver en qué funciones se estaba gastando más tiempo.
 
-- La función **`es_primo()`** concentra alrededor del **92 % del tiempo total**.
-- La operación **`append()`** sobre la lista de primos representa aproximadamente un **5 %**.
-- El resto del tiempo se reparte entre las llamadas a `time()` y otras funciones internas del intérprete (≈3 %).
+En el código original se observó que:
 
-En el gráfico de pastel se aprecia claramente que `es_primo()` ocupa la mayor parte del círculo, confirmando que es el principal cuello de botella del programa.
-<img width="886" height="629" alt="image" src="https://github.com/user-attachments/assets/0e100842-7e74-4593-aeea-be3526719ba1" />
+- La función `es_primo()` ocupa alrededor del **92 % del tiempo total** del programa.  
+- La operación `append()` sobre la lista de primos usa cerca de un **5 %**.  
+- El resto del tiempo se reparte entre las llamadas a time() y otras funciones internas (alrededor de un 3 %).
 
-Después de la optimización, aunque `es_primo()` sigue siendo la función más relevante, el tiempo total disminuye de forma notable, lo que demuestra que las mejoras implementadas fueron efectivas.
+Con el gráfico de pastel se ve que casi todo el círculo corresponde a es_primo().  
+Esto confirma que esa función era el principal cuello de botella y que ahí tenía sentido aplicar la optimización.
+Después de hacer los cambios, la función es_primo() sigue siendo la que más tiempo usa, pero como el algoritmo interno es más eficiente, el tiempo total del programa baja bastante.
+<img width="886" height="629" alt="image" src="https://github.com/user-attachments/assets/e8f84b93-d8cf-4611-ba8c-68ca51946749" />
 
----
+
+### 3. Gráficos generados
+
+Se crearon dos figuras con Matplotlib:
+
+1. **Gráfico de pastel** con la distribución del tiempo de ejecución por función (datos de `cProfile`).  
+2. **Gráfico de barras** comparando el tiempo del código original y el código optimizado.
+
+Estos gráficos ayudan a entender mejor dónde se está gastando el tiempo y a mostrar de forma visual el impacto de la optimización.
 
 ## Conclusiones
 
-- La versión original del código, aunque correcta, no era eficiente para rangos grandes debido al uso de un algoritmo con demasiadas operaciones por número.
-- Al aplicar técnicas de optimización como:
-  - limitar el recorrido de los divisores hasta la **raíz cuadrada de `n`**,
-  - utilizar **comprensiones de listas**, y
-  - aprovechar las **operaciones vectorizadas de NumPy**,  
-  se consiguió una reducción aproximada del **95 % en el tiempo de ejecución**.
+- El código original era correcto, pero no estaba pensado para rendimiento en rangos grandes.  
+- El cambio más importante fue limitar las pruebas de divisores hasta la raíz cuadrada de cada número, lo que redujo mucho el número de operaciones.  
+- El uso de NumPy y algunas mejoras de estilo también aportaron a que el código sea más rápido y ordenado.  
+- Gracias a estas modificaciones, el tiempo de ejecución pasó de unos 15 segundos a menos de 1 segundo, lo cual es una mejora muy grande.  
+- Herramientas como `cProfile` y Matplotlib fueron útiles para comprobar de manera objetiva dónde se estaba perdiendo tiempo y cómo cambió el rendimiento después de optimizar.  
+- Finalmente, todo el trabajo se versionó con **Git y GitHub**, creando una rama de trabajo para la optimización, haciendo los *commits* correspondientes y luego un *pull request* para integrar los cambios a la rama principal.
 
-- El uso de **`cProfile`** permitió identificar objetivamente la función `es_primo()` como el principal cuello de botella y guiar el proceso de optimización.
-- La generación de gráficos con **Matplotlib** facilitó la comparación visual de tiempos y la distribución del uso de CPU por función, haciendo más claro el impacto de las mejoras.
-- Finalmente, el uso de **Git y GitHub** (creación de rama, commits y *pull request* de `optimizacion-codigo`) permitió llevar un control de versiones ordenado y profesional del proyecto.
+---
 
-Como recomendación para futuros desarrollos en Ciencia de Datos:
-
-- Siempre medir tiempos y usar herramientas de profiling antes de optimizar.
-- Aprovechar librerías numéricas como NumPy y Pandas.
-- Mantener buenas prácticas de programación (PEP 8) y uso de control de versiones con Git.
+**Enlace al repositorio en GitHub:**  
+https://github.com/OdalysOleas/Cultura_digital_y_sociedad
