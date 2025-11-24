@@ -23,7 +23,7 @@ Los cambios principales que se aplicaron al código fueron:
 2. **Uso de NumPy para las comprobaciones**
 
    Se usó la librería **NumPy** para crear arreglos de posibles divisores y hacer las operaciones de forma vectorizada.  
-   NumPy está optimizado en C, por lo que estas operaciones son más rápidas que un bucle `for` puro en Python.
+   NumPy está optimizado en C, por lo que estas operaciones son más rápidas que un bucle for puro en Python.
 
 3. **Pequeñas mejoras de estilo**
 
@@ -37,18 +37,14 @@ Con estos ajustes se buscó que el programa sea más rápido, pero manteniendo e
 
 ### 1. Tiempos de ejecución
 
-Las mediciones se hicieron con el módulo `time`:
+Las mediciones se hicieron con el módulo time:
 
 - **Código original:** tiempo de ejecución ≈ **15.1 segundos**.  
 - **Código optimizado:** tiempo de ejecución entre **0.6 y 0.8 segundos** (según la corrida).
 
 Con esto, el código optimizado es mucho más rápido.  
 La mejora es de alrededor de un **95 % del tiempo**, es decir, el programa corre unas **20 veces más rápido** que la versión inicial.
-
-En el **gráfico de barras** generado con Matplotlib se ve claramente esta diferencia:  
-la barra del código original es muy alta y la del código optimizado es casi mínima en comparación.
-<img width="886" height="631" alt="image" src="https://github.com/user-attachments/assets/04cbc7e1-195e-46ae-9daa-8c699395052c" />
-
+En el **gráfico de barras** generado con Matplotlib se ve claramente esta diferencia: la barra del código original es muy alta y la del código optimizado es casi mínima en comparación.
 
 ### 2. Análisis con cProfile
 
@@ -59,19 +55,19 @@ En el código original se observó que:
 - La función `es_primo()` ocupa alrededor del **92 % del tiempo total** del programa.  
 - La operación `append()` sobre la lista de primos usa cerca de un **5 %**.  
 - El resto del tiempo se reparte entre las llamadas a time() y otras funciones internas (alrededor de un 3 %).
-
 Con el gráfico de pastel se ve que casi todo el círculo corresponde a es_primo().  
 Esto confirma que esa función era el principal cuello de botella y que ahí tenía sentido aplicar la optimización.
 Después de hacer los cambios, la función es_primo() sigue siendo la que más tiempo usa, pero como el algoritmo interno es más eficiente, el tiempo total del programa baja bastante.
-<img width="886" height="629" alt="image" src="https://github.com/user-attachments/assets/e8f84b93-d8cf-4611-ba8c-68ca51946749" />
-
 
 ### 3. Gráficos generados
 
 Se crearon dos figuras con Matplotlib:
 
-1. **Gráfico de pastel** con la distribución del tiempo de ejecución por función (datos de `cProfile`).  
+1. **Gráfico de pastel** con la distribución del tiempo de ejecución por función (datos de `cProfile`).
+   <img width="886" height="631" alt="image" src="https://github.com/user-attachments/assets/04cbc7e1-195e-46ae-9daa-8c699395052c" />
+
 2. **Gráfico de barras** comparando el tiempo del código original y el código optimizado.
+   <img width="886" height="629" alt="image" src="https://github.com/user-attachments/assets/e8f84b93-d8cf-4611-ba8c-68ca51946749" />
 
 Estos gráficos ayudan a entender mejor dónde se está gastando el tiempo y a mostrar de forma visual el impacto de la optimización.
 
@@ -81,7 +77,7 @@ Estos gráficos ayudan a entender mejor dónde se está gastando el tiempo y a m
 - El cambio más importante fue limitar las pruebas de divisores hasta la raíz cuadrada de cada número, lo que redujo mucho el número de operaciones.  
 - El uso de NumPy y algunas mejoras de estilo también aportaron a que el código sea más rápido y ordenado.  
 - Gracias a estas modificaciones, el tiempo de ejecución pasó de unos 15 segundos a menos de 1 segundo, lo cual es una mejora muy grande.  
-- Herramientas como `cProfile` y Matplotlib fueron útiles para comprobar de manera objetiva dónde se estaba perdiendo tiempo y cómo cambió el rendimiento después de optimizar.  
+- Herramientas como cProfile y Matplotlib fueron útiles para comprobar de manera objetiva dónde se estaba perdiendo tiempo y cómo cambió el rendimiento después de optimizar.  
 - Finalmente, todo el trabajo se versionó con **Git y GitHub**, creando una rama de trabajo para la optimización, haciendo los *commits* correspondientes y luego un *pull request* para integrar los cambios a la rama principal.
 
 ---
