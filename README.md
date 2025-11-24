@@ -39,7 +39,7 @@ Con estos ajustes se buscó que el programa sea más rápido, pero manteniendo e
 
 Las mediciones se hicieron con el módulo time:
 
-- **Código original:** tiempo de ejecución ≈ **15.1 segundos**.  
+- **Código original:** tiempo de ejecución = **15.1 segundos**.  
 - **Código optimizado:** tiempo de ejecución entre **0.6 y 0.8 segundos** (según la corrida).
 
 Con esto, el código optimizado es mucho más rápido.  
