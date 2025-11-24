@@ -82,7 +82,7 @@ Estos gráficos ayudan a entender mejor dónde se está gastando el tiempo y a m
 
 ---
 
-**Anexos**  
+## Anexos  
 <img width="886" height="588" alt="image" src="https://github.com/user-attachments/assets/b3e97bc3-f0ed-4948-8ee5-2c1cfdca722f" />
 
 <img width="886" height="423" alt="image" src="https://github.com/user-attachments/assets/bf507536-ed37-41a8-96ac-81f1f2b5fb1b" />
