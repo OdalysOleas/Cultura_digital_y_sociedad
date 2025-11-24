@@ -48,12 +48,12 @@ En el **gráfico de barras** generado con Matplotlib se ve claramente esta difer
 
 ### 2. Análisis con cProfile
 
-También se usó **`cProfile`** para ver en qué funciones se estaba gastando más tiempo.
+También se usó **cProfile** para ver en qué funciones se estaba gastando más tiempo.
 
 En el código original se observó que:
 
-- La función `es_primo()` ocupa alrededor del **92 % del tiempo total** del programa.  
-- La operación `append()` sobre la lista de primos usa cerca de un **5 %**.  
+- La función es_primo() ocupa alrededor del **92 % del tiempo total** del programa.  
+- La operación append() sobre la lista de primos usa cerca de un **5 %**.  
 - El resto del tiempo se reparte entre las llamadas a time() y otras funciones internas (alrededor de un 3 %).
 Con el gráfico de pastel se ve que casi todo el círculo corresponde a es_primo().  
 Esto confirma que esa función era el principal cuello de botella y que ahí tenía sentido aplicar la optimización.
